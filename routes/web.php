@@ -1,14 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\FrontendController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\MyTransactionController;
-use App\Http\Controllers\ProductGalleryController;
-use App\Http\Controllers\ProductCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,23 +13,10 @@ use App\Http\Controllers\ProductCategoryController;
 |
 */
 
-Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
-
-    Route::name('dashboard.')->prefix('dashboard')->group(function () {
-        Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('index');
-
-        Route::middleware(['ADMIN'])->group(function () {
-            Route::resource('product', ProductController::class);
-            Route::resource('category', ProductCategoryController::class);
-            Route::resource('product.gallery', ProductGalleryController::class)->shallow()->only([
-                'index', 'create', 'store', 'destroy'
-            ]);
-            Route::resource('transaction', TransactionController::class)->only([
-                'index', 'show', 'edit', 'update'
-            ]);
-            Route::resource('user', UserController::class)->only([
-                'index', 'edit', 'update', 'destroy'
-            ]);
-        });
-    });
+Route::get('/', function () {
+    return view('welcome');
 });
+
+Route::middleware(['auth:sanctum', 'verified','admin'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
