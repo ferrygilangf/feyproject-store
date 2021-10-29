@@ -66,7 +66,7 @@ class TransactionController extends Controller
             'shipping_price' => $request->shipping_price,
             'status' => $request->status
         ]);
-        
+
         foreach ($request->items as $product) {
             TransactionItem::create([
                 'users_id' => Auth::user()->id,
