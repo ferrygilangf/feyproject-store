@@ -29,9 +29,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::middleware(['ADMIN'])->group(function () {
             Route::resource('product', ProductController::class);
             Route::resource('category', ProductCategoryController::class);
-            Route::resource('product.gallery', ProductGalleryController::class)->shallow()->only([
-                'index', 'create', 'store', 'destroy'
-            ]);
+            Route::resource('gallery', ProductGalleryController::class);
+            // Route::resource('gallery', ProductGalleryController::class)->shallow()->only([
+            //     'index', 'create', 'store', 'destroy'
+            // ]);
             Route::resource('transaction', TransactionController::class)->only([
                 'index', 'show', 'edit', 'update'
             ]);

@@ -43,7 +43,7 @@ class ProductGalleryController extends Controller
 
         return view('pages.dashboard.gallery.index', compact('product'));
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -51,7 +51,8 @@ class ProductGalleryController extends Controller
      */
     public function create(Product $product)
     {
-        return view('pages.dashboard.gallery.create', compact('product'));
+        $products = Product::all();
+        return view('pages.dashboard.gallery.create', compact('product', 'products'));
     }
 
     /**
@@ -62,7 +63,10 @@ class ProductGalleryController extends Controller
      */
     public function store(ProductGalleryRequest $request, Product $product)
     {
+
         $files = $request->file('files');
+
+        $products_id = $request->products_id;
 
         if($request->hasFile('files'))
         {
@@ -70,13 +74,27 @@ class ProductGalleryController extends Controller
                 $path = $file->store('public/gallery');
 
                 ProductGallery::create([
-                    'products_id' => $product->id,
+                    'products_id' => $products_id,
                     'url' => $path
                 ]);
             }
         }
 
-        return redirect()->route('dashboard.product.gallery.index', $product->id);
+        // $request->validate([
+        //     'products_id' => 'max:10',
+        //     'url' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1500',
+        //    ]);
+
+        //    $data = new \App\Models\ProductGallery();
+        //    $data->products_id = $request->input('products_id');
+        //    $url = $request->file('url');
+        //    $ext = $url->getClientOriginalExtension();
+        //    $newName = rand(100000,1001238912).".".$ext;
+        //    $url->move('public/gallery',$newName);
+        //    $data->url = $newName;
+        //    $data->save();
+
+        return redirect()->route('dashboard.gallery.index', $product->id);
     }
 
     /**
