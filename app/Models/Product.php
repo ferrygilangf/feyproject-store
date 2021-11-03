@@ -23,6 +23,8 @@ class Product extends Model
         'tags',
     ];
 
+    protected $table = 'products';
+
 
     public function galleries()
     {
