@@ -23,11 +23,7 @@ class ProductController extends Controller
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
                     return '
-<<<<<<< HEAD
                         <a class="inline-block border border-blue-700 bg-blue-700 text-white rounded-md px-2 py-1 m-1 transition duration-500 ease select-none hover:bg-blue-800 focus:outline-none focus:shadow-outline"
-=======
-                        <a class="inline-block border border-blue-700 bg-blue-700 text-white rounded-md px-2 py-1 m-1 transition duration-500 ease select-none hover:bg-blue-800 focus:outline-none focus:shadow-outline" 
->>>>>>> 162a0e87fc57beb81578e33d4c51ad38b3db7772
                             href="' . route('dashboard.product.gallery.index', $item->id) . '">
                             Gallery
                         </a>
