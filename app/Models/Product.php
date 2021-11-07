@@ -23,12 +23,9 @@ class Product extends Model
         'tags',
     ];
 
-    protected $table = 'products';
-
-
     public function galleries()
     {
-        return $this->hasOne(ProductGallery::class, 'products_id', 'id');
+        return $this->hashMany(ProductGallery::class, 'products_id', 'id');
     }
 
     public function category()

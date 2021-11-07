@@ -19,9 +19,9 @@ class ProductGallery extends Model
     protected $fillable = [
         'products_id',
         'url',
+        'is_featured'
     ];
 
-    protected $table = 'product_galleries';
 
     public function getUrlAttribute($url)
     {
